@@ -12,6 +12,27 @@ SSIS - SYNTHI'S STUPID SETUP SCRIPT (c) 202222222222
 BLAH BLAH BLAH LICENSE IS GPL3 OR SOMETHING I DON'T KNOW
 #>
 
+# setup ssis
+if ($PSScriptRoot -eq '') {
+
+    $source = "https://raw.githubusercontent.com/snthcy/SSIS/main/SSIS.ps1"
+    $destination = "$WindowsAppsDir\ssis.ps1"
+
+    Remove-Item "$WindowsAppsDir\ssis.ps1"-Force -ErrorAction SilentlyContinue
+    Remove-Item "$WindowsAppsDir\ssis.bat"-Force -ErrorAction SilentlyContinue
+    Remove-Item "$WindowsAppsDir\ssis.lnk"-Force -ErrorAction SilentlyContinue
+
+    $webClient = [System.Net.WebClient]::new()
+    $webClient.DownloadFile($source, $destination)
+
+    "title ssis.bat
+powershell Set-ExecutionPolicy Unrestricted -Scope Process -Force;%localappdata%\Microsoft\WindowsApps\CustomizableLauncher.ps1 %1 %2 %3 %4 %5 %6 %7 %8 %9
+exit" | Set-Content $WindowsAppsDir\ssis.bat
+
+    Start-Process ssis.bat
+    exit
+}
+
 $essentials = @{
     'git'  = ('main/git')
     'aria' = ('main/aria2')
@@ -63,27 +84,6 @@ $6 = $($args[5])
 $7 = $($args[6])
 $8 = $($args[8])
 $9 = $($args[9])
-
-$source = "https://raw.githubusercontent.com/snthcy/SSIS/main/SSIS.ps1"
-$destination = "$WindowsAppsDir\ssis.ps1"
-
-# setup ssis
-if ($PSScriptRoot -eq '') {
-
-    Remove-Item "$WindowsAppsDir\ssis.ps1"-Force -ErrorAction SilentlyContinue
-    Remove-Item "$WindowsAppsDir\ssis.bat"-Force -ErrorAction SilentlyContinue
-    Remove-Item "$WindowsAppsDir\ssis.lnk"-Force -ErrorAction SilentlyContinue
-
-    $webClient = [System.Net.WebClient]::new()
-    $webClient.DownloadFile($source, $destination)
-
-    "title ssis.bat
-powershell Set-ExecutionPolicy Unrestricted -Scope Process -Force;%localappdata%\Microsoft\WindowsApps\CustomizableLauncher.ps1 %1 %2 %3 %4 %5 %6 %7 %8 %9
-exit" | Set-Content $WindowsAppsDir\ssis.bat
-
-    Start-Process ssis.bat
-    exit
-}
 
 
 # menu
