@@ -64,7 +64,7 @@ $7 = $($args[6])
 $8 = $($args[8])
 $9 = $($args[9])
 
-$source = "https://github.com/snthcy/ssis/raw/main/ssis.ps1"
+$source = "https://raw.githubusercontent.com/snthcy/SSIS/main/SSIS.ps1"
 $destination = "$WindowsAppsDir\ssis.ps1"
 
 # setup ssis
