@@ -74,7 +74,8 @@ if ($PSScriptRoot -eq '') {
     Remove-Item "$WindowsAppsDir\ssis.bat"-Force -ErrorAction SilentlyContinue
     Remove-Item "$WindowsAppsDir\ssis.lnk"-Force -ErrorAction SilentlyContinue
 
-    curl $source -outFile $destination
+    $webClient = [System.Net.WebClient]::new()
+    $webClient.DownloadFile($source, $destination)
 
     "title ssis.bat
 powershell Set-ExecutionPolicy Unrestricted -Scope Process -Force;%localappdata%\Microsoft\WindowsApps\CustomizableLauncher.ps1 %1 %2 %3 %4 %5 %6 %7 %8 %9
